@@ -1,16 +1,16 @@
 import os
-os.system("pip install joblib pandas numpy scikit-learn requests --quiet")
+# ✅ Force install dependencies (guaranteed fix)
+os.system("pip install streamlit joblib pandas numpy scikit-learn requests --quiet")
 
 import streamlit as st
 import joblib
 import pandas as pd
 import requests
-import numpy as np
-
 
 # --- Load model from Google Drive ---
-file_id = "1tWd2v7Fzbv44tPLw4z2OOYxW6dfcmScW"  # <-- apna Drive file ID yahan daal
-model_url = "https://drive.google.com/file/d/1tWd2v7Fzbv44tPLw4z2OOYxW6dfcmScW/view?usp=sharing{1tWd2v7Fzbv44tPLw4z2OOYxW6dfcmScW}"
+# Replace this with your own Google Drive File ID
+file_id = "1tWd2v7Fzbv44tPLw4z2OOYxW6dfcmScW"  # 👈 apna file ID yahan daal
+model_url = f"https://drive.google.com/file/d/1tWd2v7Fzbv44tPLw4z2OOYxW6dfcmScW/view?usp=sharing{1tWd2v7Fzbv44tPLw4z2OOYxW6dfcmScW}"
 
 @st.cache_resource
 def load_model():
@@ -18,7 +18,9 @@ def load_model():
     model = joblib.load(response.raw)
     return model
 
+st.write("Loading model... please wait ⏳")
 model = load_model()
+st.success("✅ Model loaded successfully!")
 
 # --- Streamlit App UI ---
 st.title("🌲 Forest Cover Type Prediction App")
@@ -39,4 +41,4 @@ data = pd.DataFrame({
 
 if st.button("Predict"):
     pred = model.predict(data)[0]
-    st.success(f"Predicted Cover Type: {pred}")
+    st.success(f"🌿 Predicted Cover Type: {pred}")
