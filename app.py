@@ -1,10 +1,21 @@
-%%writefile app.py
 import streamlit as st
 import joblib
 import pandas as pd
+import requests
 
-model = joblib.load('model.pkl')
+# --- Load model from Google Drive ---
+file_id = "1tWd2v7Fzbv44tPLw4z2OOYxW6dfcmScW"  # <-- apna Drive file ID yahan daal
+model_url = "https://drive.google.com/file/d/1tWd2v7Fzbv44tPLw4z2OOYxW6dfcmScW/view?usp=sharing{1tWd2v7Fzbv44tPLw4z2OOYxW6dfcmScW}"
 
+@st.cache_resource
+def load_model():
+    response = requests.get(model_url, stream=True)
+    model = joblib.load(response.raw)
+    return model
+
+model = load_model()
+
+# --- Streamlit App UI ---
 st.title("🌲 Forest Cover Type Prediction App")
 
 Elevation = st.number_input("Elevation", 0, 5000, 2000)
