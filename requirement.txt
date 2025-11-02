@@ -1,8 +1,6 @@
-streamlit
-joblib==1.5.2
+streamlit==1.39.0
 pandas
 numpy
 scikit-learn
 requests
-xgboost
-lightgbm
+joblib
