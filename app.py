@@ -1,7 +1,12 @@
+import os
+os.system("pip install joblib pandas numpy scikit-learn requests --quiet")
+
 import streamlit as st
 import joblib
 import pandas as pd
 import requests
+import numpy as np
+
 
 # --- Load model from Google Drive ---
 file_id = "1tWd2v7Fzbv44tPLw4z2OOYxW6dfcmScW"  # <-- apna Drive file ID yahan daal
