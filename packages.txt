@@ -1,0 +1,5 @@
+libgomp1
+cmake
+libboost-dev
+libboost-system-dev
+libboost-filesystem-dev
