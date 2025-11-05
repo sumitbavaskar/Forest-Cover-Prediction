@@ -6,6 +6,7 @@ import streamlit as st
 import joblib
 import pandas as pd
 import requests
+import io
 
 # --- Load model from Google Drive ---
 # Replace this with your own Google Drive File ID
@@ -15,7 +16,7 @@ model_url = f"https://drive.google.com/uc?id={file_id}"
 @st.cache_resource
 def load_model():
     response = requests.get(model_url, stream=True)
-    model = joblib.load(response.raw)
+    model = joblib.load(io.BytesIO(response.content))
     return model
 
 st.write("Loading model... please wait ⏳")
